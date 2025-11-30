@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-md space-y-8">
+
+    <!-- HEADER -->
+    <header class="text-center">
+      <svg class="mx-auto h-8 w-auto text-[#ff00ff]" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10..."></path>
+      </svg>
+      <h1 class="mt-4 text-3xl font-bold tracking-tight">CreatorHub</h1>
+    </header>
+
+    <!-- CARD -->
+    <main class="bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-[#222] rounded-[1rem] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-2px_rgba(0,0,0,0.05)] dark:shadow-[0_10px_15px_-3px_rgba(255,0,255,0.03),0_4px_6px_-4px_rgba(255,0,255,0.03)] p-8 space-y-6">
+
+      <h2 class="text-xl font-semibold text-center">Create your account</h2>
+
+      <form method="post" action="{% url 'account_signup' %}" class="space-y-4">
+        {% csrf_token %}
+
+        <!-- FIRST NAME -->
+        {{ form.first_name|add_class:"h-12 p-3 rounded-md bg-gray-100 dark:bg-[#2a2a2a] border border-gray-200 dark:border-[#222] placeholder-gray-500 dark:placeholder-gray-400 focus:border-[#ff00ff] focus:ring-[#ff00ff] focus:ring-opacity-50 w-full" }}
+
+        <!-- LAST NAME -->
+        {{ form.last_name|add_class:"h-12 p-3 rounded-md bg-gray-100 dark:bg-[#2a2a2a] border border-gray-200 dark:border-[#222] placeholder-gray-500 dark:placeholder-gray-400 focus:border-[#ff00ff] focus:ring-[#ff00ff] focus:ring-opacity-50 w-full" }}
+
+        <!-- EMAIL -->
+        {{ form.email|add_class:"h-12 p-3 rounded-md bg-gray-100 dark:bg-[#2a2a2a] border border-gray-200 dark:border-[#222] placeholder-gray-500 dark:placeholder-gray-400 focus:border-[#ff00ff] focus:ring-[#ff00ff] focus:ring-opacity-50 w-full" }}
+
+        <!-- PASSWORD1 -->
+        {{ form.password1|add_class:"h-12 p-3 rounded-md bg-gray-100 dark:bg-[#2a2a2a] border border-gray-200 dark:border-[#222] placeholder-gray-500 dark:placeholder-gray-400 focus:border-[#ff00ff] focus:ring-[#ff00ff] focus:ring-opacity-50 w-full" }}
+
+        <!-- PASSWORD2 -->
+        {{ form.password2|add_class:"h-12 p-3 rounded-md bg-gray-100 dark:bg-[#2a2a2a] border border-gray-200 dark:border-[#222] placeholder-gray-500 dark:placeholder-gray-400 focus:border-[#ff00ff] focus:ring-[#ff00ff] focus:ring-opacity-50 w-full" }}
+
+        <!-- SIGNUP BUTTON -->
+        <button type="submit" class="w-full h-12 bg-[#ff00ff] text-white font-bold rounded-md hover:opacity-90 transition">
+          Sign Up
+        </button>
+
+        <!-- GOOGLE SOCIAL (optional) -->
+       
+        {% if socialaccount_providers %}
+        <div class="mt-4 flex flex-col gap-2">
+          {% include "socialaccount/snippets/provider_list.html" %}
+        </div>
+        {% endif %}
+      </form>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="text-center">
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        Already have an account?
+        <a href="{% url 'account_login' %}" class="font-semibold text-[#ff00ff] hover:underline">Log in</a>
+      </p>
+    </footer>
+
+  </div>
+</div>
+
+{% endblock %}

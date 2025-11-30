@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Email Address Confirmation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff00ff", // Neon pink accent as requested in the user prompt
+                        "background-light": "#f5f5f5", // Light mode background
+                        "background-dark": "#0d0d0d", // Deep-black background as requested
+                        "card-light": "#ffffff",
+                        "card-dark": "#1c1c1c",
+                        "text-light-primary": "#171717",
+                        "text-dark-primary": "#f5f5f5",
+                        "text-light-secondary": "#737373",
+                        "text-dark-secondary": "#a1a1a1",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "8px", // Adhering to 8px grid
+                        "lg": "12px",
+                        "xl": "16px",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'soft-neon': '0 0 20px 0 rgba(255, 0, 255, 0.3)',
+                        'soft-dark': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
+                        'soft-light': '0 4px 12px 0 rgba(0, 0, 0, 0.05)'
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 300,
+                'GRAD' 0,
+                'opsz' 48
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light-primary dark:text-text-dark-primary antialiased">
+<div class="relative flex h-screen min-h-screen w-full flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
+<div class="w-full max-w-md">
+<div class="flex flex-col items-center space-y-8 rounded-xl bg-card-light dark:bg-card-dark p-8 shadow-soft-light dark:shadow-soft-dark border border-white/5">
+<div class="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-4xl" data-icon="mail">mail</span>
+</div>
+<div class="flex flex-col items-center text-center space-y-2">
+<h1 class="text-2xl font-bold tracking-tight text-text-light-primary dark:text-text-dark-primary">Confirm Email Address</h1>
+<p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">
+                        Please confirm that <strong class="font-medium text-text-light-primary dark:text-text-dark-primary">modric@gmail.com</strong> is your email address.
+                    </p>
+</div>
+<div class="w-full pt-2">
+    <form action="{% url 'account_confirm_email' confirmation.key %}" method="post">
+        {% csrf_token %}
+        <button class="flex w-full h-12 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary text-white text-base font-bold leading-normal tracking-wide transition-all hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-primary/40 shadow-soft-neon"
+        type="submit">
+        <span class="truncate">Confirm</span>
+        </button>
+    </form>
+</div>
+<div class="pt-2 text-center">
+<a class="text-xs text-text-light-secondary dark:text-text-dark-secondary hover:text-primary transition-colors" href="#">Wrong email? Go back</a>
+</div>
+</div>
+</div>
+</div>
+</body></html>

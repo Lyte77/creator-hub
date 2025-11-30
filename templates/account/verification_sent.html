@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Email Confirmation Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#f4256a", // Default from component, but will be overridden by pink-neon as requested
+              "background-light": "#f8f5f6",
+              "background-dark": "#0d0d0d", // Deep-black as requested
+              "pink-neon": "#ff00ff", // Neon pink accent as requested
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+                "DEFAULT": "0.25rem", 
+                "lg": "0.5rem", 
+                "xl": "0.75rem", 
+                "full": "9999px"
+            },
+            boxShadow: {
+                'soft-glow': '0 0 15px 0 rgba(255, 0, 255, 0.3)',
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col p-4 sm:p-6 lg:p-8">
+<div class="layout-container flex h-full grow flex-col items-center justify-center">
+<div class="flex items-center gap-2 pb-8">
+<span class="material-symbols-outlined text-pink-neon text-3xl">hub</span>
+<span class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">CreatorHub</span>
+</div>
+<div class="layout-content-container flex w-full max-w-md flex-col rounded-lg border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-[#171717] sm:p-8">
+<div class="flex justify-center pb-6">
+<div class="flex h-16 w-16 items-center justify-center rounded-full bg-pink-neon/10">
+<span class="material-symbols-outlined text-3xl text-pink-neon" data-icon="mail">mail</span>
+</div>
+</div>
+<h1 class="text-center text-2xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-3xl">Email Sent for Verification</h1>
+<p class="pt-2 pb-6 text-center text-sm font-normal leading-normal text-zinc-600 dark:text-zinc-400 sm:text-base">
+              We've sent an email to you to verify your CreatorHub account. Please check your inbox and click the link inside to finalize the signup process. Remember to check your spam folder if you don't see it.
+            </p>
+<div class="flex py-2 justify-center">
+<a class="flex h-12 min-w-[84px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-pink-neon px-5 text-base font-bold leading-normal tracking-[0.015em] text-black transition-shadow hover:shadow-soft-glow focus:outline-none focus:ring-2 focus:ring-pink-neon focus:ring-offset-2 focus:ring-offset-[#171717]" href="{{ activate_url }}">
+<span class="truncate">Resend Verification Email</span>
+</a>
+</div>
+<p class="pt-6 text-center text-xs font-normal leading-normal text-zinc-500 dark:text-zinc-500 sm:text-sm">
+              If you don't receive the verification email within a few minutes, please contact our support team.
+            </p>
+</div>
+<div class="pt-8 text-center text-sm text-zinc-500 dark:text-zinc-600">
+<p>© 2024 CreatorHub Team</p>
+</div>
+</div>
+</div>
+</body></html>

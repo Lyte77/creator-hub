@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md space-y-8">
+    <header class="text-center"> <svg class="mx-auto h-8 w-auto text-[#ff00ff]" fill="currentColor" viewBox="0 0 24 24"> <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10..."></path> </svg> <h1 class="mt-4 text-3xl font-bold tracking-tight">CreatorHub</h1> </header>
+    <main class="bg-white dark:bg-[#1a1a1a] border border-[#e0e0e0] dark:border-[#222] rounded-[1rem] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-2px_rgba(0,0,0,0.05)] dark:shadow-[0_10px_15px_-3px_rgba(255,0,255,0.03),0_4px_6px_-4px_rgba(255,0,255,0.03)] p-8 space-y-6">
+<form method="post" action="{% url 'account_login' %}" class="space-y-4">
+    {% csrf_token %}
+
+    <!-- EMAIL -->
+    <label class="flex flex-col">
+        <p class="text-sm font-medium pb-2 text-gray-500 dark:text-gray-400">Email</p>
+        {{ form.login|add_class:"h-12 p-3 rounded-md bg-gray-100 dark:bg-[#2a2a2a] border border-gray-200 dark:border-[#222] placeholder-gray-500 dark:placeholder-gray-400 focus:border-[#ff00ff] focus:ring-[#ff00ff] focus:ring-opacity-50 w-full" }}
+        {% if form.login.errors %}
+            <p class="text-red-400 text-sm mt-1">{{ form.login.errors.0 }}</p>
+        {% endif %}
+    </label>
+
+    <!-- PASSWORD -->
+    <label class="flex flex-col">
+        <div class="flex justify-between items-baseline pb-2">
+            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Password</p>
+            <a href="{% url 'account_reset_password' %}" class="text-xs font-medium text-[#ff00ff] hover:underline">Forgot Password?</a>
+        </div>
+
+        <div class="relative">
+            {{ form.password|add_class:"h-12 p-3 rounded-md bg-gray-100 dark:bg-[#2a2a2a] border border-gray-200 dark:border-[#222] placeholder-gray-500 dark:placeholder-gray-400 focus:border-[#ff00ff] focus:ring-[#ff00ff] focus:ring-opacity-50 w-full" }}
+            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 cursor-pointer">
+                visibility
+            </span>
+        </div>
+
+        {% if form.password.errors %}
+            <p class="text-red-400 text-sm mt-1">{{ form.password.errors.0 }}</p>
+        {% endif %}
+    </label>
+
+    <!-- LOGIN BUTTON -->
+    <button type="submit" class="w-full h-12 bg-[#ff00ff] text-white font-bold rounded-md hover:opacity-90 transition">
+        Log In
+    </button>
+
+    <!-- OPTIONAL: social login buttons (Google) -->
+   
+    {% if socialaccount_providers %}
+    <div class="mt-4">
+        {% include "socialaccount/snippets/provider_list.html" %}
+    </div>
+    {% endif %}
+
+</form>
+</main>
+ <!-- FOOTER -->
+    <footer class="text-center">
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        Dont  have an account?
+        <a href="{% url 'account_signup' %}" class="font-semibold text-[#ff00ff] hover:underline">Sign Up</a>
+      </p>
+    </footer>
+
+</div>
+</div>
+
+{% endblock %}
