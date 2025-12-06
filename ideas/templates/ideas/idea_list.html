@@ -1,6 +1,64 @@
-{% extends 'base.html' %}
+    {% extends 'dashboard_base.html' %}
 
-{% block content %}
-    {% include 'partials/sidebar.html' %}
+    {% block content %}
+            
+       <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
 
-{% endblock %}
+  <!-- Page Header -->
+  <header class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
+    <h1 class="text-white text-4xl font-black leading-tight tracking-tight">All Ideas</h1>
+    <button class="flex items-center justify-center gap-2 rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold shadow-lg shadow-primary/30 hover:bg-primary/90 transition-colors">
+      <span class="material-symbols-outlined text-lg">add</span>
+      <span class="truncate">New Idea</span>
+    </button>
+  </header>
+
+  <!-- Ideas List -->
+  <div class="flex flex-col gap-6">
+    {% for idea in ideas %}
+    <div class="relative p-4 sm:p-6 rounded-xl bg-dark-grey overflow-hidden group shadow-md hover:shadow-lg transition-shadow duration-300">
+      
+      <!-- Gradient Border Effect -->
+      <div class="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-primary/50 transition-all duration-300 pointer-events-none"></div>
+
+      <!-- Content -->
+      <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div id="idea-{{ idea.id }}">
+        <!-- Idea Info -->
+        <div class="flex flex-1 flex-col gap-1">
+          <p class="text-gray-800 dark:text-gray-200 text-sm">{{ idea.content }}</p>
+          <p class="text-text-secondary text-sm font-normal leading-normal">{{ idea.created_at|date:"M d, Y" }}</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <button 
+            hx-get="{% url 'edit_idea' idea.id %}" 
+            hx-target="#idea-{{ idea.id }}" 
+            hx-swap="outerHTML"
+            class="flex items-center justify-center gap-1 rounded-lg h-8 px-3 bg-secondary/10 text-secondary text-sm font-medium hover:bg-secondary/20 transition-colors"
+          >
+            <span class="material-symbols-outlined text-base">edit</span>
+            Edit
+          </button>
+          <button 
+            hx-delete="{% url 'delete_idea' idea.id %}" 
+            hx-target="#idea-{{ idea.id }}" 
+            hx-swap="outerHTML"
+            class="flex items-center justify-center gap-1 rounded-lg h-8 px-3 bg-primary/10 text-primary text-sm font-medium hover:bg-primary/20 transition-colors"
+          >
+            <span class="material-symbols-outlined text-base">delete</span>
+            Delete
+          </button>
+        </div>
+      </div>
+      </div>
+    </div>
+    {% empty %}
+      <p class="text-gray-400 text-center py-8">No ideas yet. Add one above!</p>
+    {% endfor %}
+  </div>
+
+</div>
+
+    {% endblock %}

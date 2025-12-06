@@ -1,88 +1,62 @@
+<!-- Mobile Overlay Sidebar -->
+<div 
+  x-show="sidebarOpen" 
+  class="fixed inset-0 z-30 bg-black/50 lg:hidden" 
+  @click="sidebarOpen = false"
+></div>
 
+<!-- Sidebar -->
+<aside 
+  :class="sidebarOpen ? 'translate-x-0'  '-translate-x-full'" 
+  class="fixed lg:relative z-40 w-64 bg-white dark:bg-[#1a1a1a] border-r border-gray-200 dark:border-[#333] flex flex-col p-4 h-full transform transition-transform duration-300 ease-in-out lg:translate-x-0"
+>
 
-
-<div class="flex h-screen">
-
-  <!-- Mobile Overlay Sidebar -->
-  <div x-show="sidebarOpen" class="fixed inset-0 z-30 bg-black/50 lg:hidden" @click="sidebarOpen = false"></div>
-
-  <!-- Sidebar -->
-  <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" 
-         class="fixed lg:relative z-40 w-64 bg-white dark:bg-[#1a1a1a] border-r border-gray-200 dark:border-[#333] flex flex-col p-4 h-full transform transition-transform duration-300 ease-in-out lg:translate-x-0">
-    <div class="flex items-center gap-3 mb-6">
-      <div class="w-10 h-10 rounded-full bg-cover bg-center" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAybwidc3wGQlTeuqGvqZlycEwNh6TnTGEMCY4o3U6PHBoE4eKVsr_NJffts9DFcDzL4PZC_mBcGSdgPiy6icltYI7i6huG5xOWxMU-js4eu7f66-s7nc5tZIQT_AXmRKdDLoFZJcicLdGH5BSWN3CbSVNOSSJniuHazYyRKPDWNSpqHqKTjGhhGZ1MxKrKaDxF-MN1DAKNe-G_QLDSWjLn2BNBUCoc7z-CFs61-3ZQDkQ1c2jzXzIvJsbNXcrNmSAIqsM56SdqUv3V');"></div>
-      <h1 class="text-lg font-bold">CreatorHub</h1>
+  <!-- Logo -->
+  <div class="flex items-center gap-3 mb-8">
+    <div class="w-10 h-10 rounded-full bg-cover bg-center" 
+         style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAybwidc3wGQlTeuqGvqZlycEwNh6TnTGEMCY4o3U6PHBoE4eKVsr_NJffts9DFcDzL4PZC_mBcGSdgPiy6icltYI7i6huG5xOWxMU-js4eu7f66-s7nc5tZIQT_AXmRKdDLoFZJcicLdGH5BSWN3CbSVNOSSJniuHazYyRKPDWNSpqHqKTjGhhGZ1MxKrKaDxF-MN1DAKNe-G_QLDSWjLn2BNBUCoc7z-CFs61-3ZQDkQ1c2jzXzIvJsbNXcrNmSAIqsM56SdqUv3V');">
     </div>
+    <h1 class="text-lg font-bold truncate">CreatorHub</h1>
+  </div>
 
-    <nav class="flex flex-col gap-2 flex-grow">
-      <a href="{% url 'dashboard' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#ff00ff]/10 text-[#ff00ff]">
-        <span class="material-symbols-outlined">dashboard</span>
-        <p class="text-sm font-medium">Dashboard</p>
-      </a>
-      <a href="{% url 'idea_list' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-        <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">lightbulb</span>
-        <p class="text-sm font-medium">Ideas</p>
-      </a>
-      <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-        <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">title</span>
-        <p class="text-sm font-medium">Captions</p>
-      </a>
-      <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-        <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">calendar_month</span>
-        <p class="text-sm font-medium">Calendar</p>
-      </a>
-    </nav>
+  <!-- Navigation -->
+  <nav class="flex flex-col gap-2 flex-grow">
+    <a href="{% url 'dashboard' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#ff00ff]/10 text-[#ff00ff] hover:opacity-90 transition">
+      <span class="material-symbols-outlined">dashboard</span>
+      <p class="text-sm font-medium">Dashboard</p>
+    </a>
+    <a href="{% url 'idea_list' %}" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+      <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">lightbulb</span>
+      <p class="text-sm font-medium">Ideas</p>
+    </a>
+    <a href="{% url 'caption_page' %}h" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+      <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">title</span>
+      <p class="text-sm font-medium">Captions</p>
+    </a>
+    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+      <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">calendar_month</span>
+      <p class="text-sm font-medium">Calendar</p>
+    </a>
+  </nav>
 
-    <div class="mt-auto">
-      <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-        <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">settings</span>
-        <p class="text-sm font-medium">Settings</p>
-      </a>
-      <div class="flex items-center gap-3 mt-2 p-2">
-        <div class="w-10 h-10 rounded-full bg-cover" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBD8ij-OQzPmTVLngrdioLT-GwyfSNYL1bH7WpLTVfugu2Wr-Ry-9FEsd0I53asMxdgZ2rj71OQx6RMmDak1207SlbpqaWGRzbHBvRYTa_cvWwV3SnjdDGmvx2uaZiR64zAhHf0R2LOiR2_bJj7Y4kC5reatIUiVEo6tcDOhM3J1ab4JzmIh9XoOAcRa0hVH17yHSdy52xj2nThmXIopmXNhKb3zT6K9IVg6iG1GRg1nIW66clonSSxtZdxC3KVrxVziUpixGuF3Lys');"></div>
-        <div class="flex flex-col overflow-hidden">
-          <p class="text-sm font-medium truncate">Alex Rivera</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 truncate">alex@creator.co</p>
-        </div>
+  <!-- Bottom Section -->
+  <div class="mt-auto space-y-4">
+    <!-- Settings -->
+    <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+      <span class="material-symbols-outlined text-gray-500 dark:text-gray-400">settings</span>
+      <p class="text-sm font-medium">Settings</p>
+    </a>
+
+    <!-- User Info -->
+    <div class="flex items-center gap-3 p-2 bg-gray-50 dark:bg-[#111] rounded-lg">
+      <div class="w-10 h-10 rounded-full bg-cover" 
+           style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBD8ij-OQzPmTVLngrdioLT-GwyfSNYL1bH7WpLTVfugu2Wr-Ry-9FEsd0I53asMxdgZ2rj71OQx6RMmDak1207SlbpqaWGRzbHBvRYTa_cvWwV3SnjdDGmvx2uaZiR64zAhHf0R2LOiR2_bJj7Y4kC5reatIUiVEo6tcDOhM3J1ab4JzmIh9XoOAcRa0hVH17yHSdy52xj2nThmXIopmXNhKb3zT6K9IVg6iG1GRg1nIW66clonSSxtZdxC3KVrxVziUpixGuF3Lys');">
+      </div>
+      <div class="flex flex-col overflow-hidden">
+        <p class="text-sm font-medium truncate">Alex Rivera</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400 truncate">alex@creator.co</p>
       </div>
     </div>
-  </aside>
+  </div>
 
-  <!-- Main Content -->
-  <main class="flex-1 flex flex-col overflow-y-auto">
-
-    <!-- TopNavBar -->
-    <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between sticky top-0 z-20 border-b border-gray-200 dark:border-[#333] px-4 sm:px-8 py-3 bg-white dark:bg-[#1a1a1a]/90 backdrop-blur-sm">
-      <div class="flex items-center justify-between w-full sm:w-auto">
-        <!-- Hamburger -->
-        <button class="lg:hidden flex items-center justify-center h-10 w-10 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition"
-                @click="sidebarOpen = !sidebarOpen">
-          <span class="material-symbols-outlined text-gray-900 dark:text-gray-200">menu</span>
-        </button>
-        <h2 class="text-lg font-bold ml-2 sm:ml-0">Dashboard</h2>
-      </div>
-
-      <!-- Search & Actions -->
-      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto mt-2 sm:mt-0">
-        <div class="flex-1 max-w-md w-full sm:w-auto">
-          <div class="flex items-center rounded-lg border border-gray-200 dark:border-[#333] bg-gray-50 dark:bg-[#1a1a1a] h-10">
-            <span class="material-symbols-outlined px-3 text-gray-500 dark:text-gray-400">search</span>
-            <input class="flex-1 bg-transparent outline-none text-sm text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400"
-                   placeholder="Search..." type="text"/>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 mt-2 sm:mt-0">
-          <button class="h-10 px-4 bg-[#ff00ff] text-white font-bold rounded-lg hover:opacity-90 transition">+ New Post</button>
-          <button class="h-10 px-3 flex items-center gap-2 border border-gray-200 dark:border-[#333] rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-            <span class="material-symbols-outlined">notifications</span>
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <!-- Dashboard Grid -->
-  
-  </main>
-
-</div>
-
+</aside>

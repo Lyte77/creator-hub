@@ -1,0 +1,25 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome, {{ user.username }}!</h2>
+    <p>Thanks for signing up. Please verify your email address to get started.</p>
+    
+    <p style="padding: 20px 0;">
+        <a href="{{ activate_url }}" class="button">Verify Email</a>
+    </p>
+    
+    <p><small>Or copy this link: {{ activate_url }}</small></p>
+</body>
+</html>

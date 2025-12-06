@@ -7,5 +7,11 @@ requires-python = ">=3.12"
 dependencies = [
     "django>=5.2.8",
     "django-allauth>=65.13.1",
+    "django-anymail[resend]>=13.1",
+    "django-environ>=0.12.0",
+    "django-htmx>=1.27.0",
     "django-widget-tweaks>=1.5.0",
+    "google-generativeai>=0.8.5",
+    "python-dotenv>=1.2.1",
+    "resend>=2.19.0",
 ]

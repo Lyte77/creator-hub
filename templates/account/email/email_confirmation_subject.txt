@@ -1,1 +1,2 @@
-Verify your CreatorHub account
+{% load i18n %}
+{% trans "Please Verify Your Email Address" %}

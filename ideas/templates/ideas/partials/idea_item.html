@@ -1,0 +1,49 @@
+  <!-- <div class="flex flex-col sm:flex-row justify-between py-3 gap-2 sm:gap-0" id="idea-{{ idea.id }}">
+              <div class="flex items-center gap-3 flex-1 min-w-0">
+                <div class="w-10 h-10 rounded-lg bg-gray-100 dark:bg-[#111] flex items-center justify-center border border-gray-200 dark:border-[#333] shrink-0">
+                </div>
+                  <p>{{ idea }}</p>
+               
+              
+              </div>
+              <p class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">2 hours ago</p>
+    </div> -->
+
+
+<div 
+  id="idea-{{ idea.id }}"
+  class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-lg bg-gray-50 dark:bg-[#111] border border-gray-200 dark:border-[#333] shadow-sm hover:shadow-md transition-shadow duration-200"
+>
+
+  <!-- Idea Text -->
+  <p class="text-gray-800 dark:text-gray-200 text-sm flex-1 break-words">
+    {{ idea }}
+  </p>
+
+  <!-- Actions -->
+  <div class="flex items-center gap-3 mt-2 sm:mt-0">
+
+    <!-- Edit -->
+    <button 
+      hx-get="{% url 'edit_idea' idea.id %}"
+      hx-target="#idea-{{ idea.id }}"
+      hx-swap="outerHTML"
+      class="p-2 text-gray-500 dark:text-gray-400 hover:text-[#ff00ff] rounded transition-colors duration-200"
+      aria-label="Edit Idea"
+    >
+      <span class="material-symbols-outlined text-base">edit</span>
+    </button>
+
+    <!-- Delete -->
+    <button
+      hx-delete="{% url 'delete_idea' idea.id %}"
+      hx-target="#idea-{{ idea.id }}"
+      hx-swap="outerHTML"
+      class="p-2 text-gray-500 dark:text-gray-400 hover:text-red-500 rounded transition-colors duration-200"
+      aria-label="Delete Idea"
+    >
+      <span class="material-symbols-outlined text-base">delete</span>
+    </button>
+
+  </div>
+</div>

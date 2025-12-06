@@ -1,0 +1,35 @@
+{% if ideas %}
+
+{% for idea in ideas %}
+<div class="rounded-lg overflow-hidden border border-white/10 bg-[#141414] shadow-[0_0_20px_#ff00ff22]">
+    <div class="max-h-48 overflow-y-auto">
+
+        <div id="ideas-panel"></div>
+
+        <div class="flex items-center justify-between px-4 py-3 hover:bg-white/5 cursor-pointer">
+            <form hx-post="{% url 'use-idea' idea.id %}" hx-target="#caption-input" hx-swap="innerHTML">
+
+
+                {% csrf_token %}
+            
+        <button class="text-white text-sm truncate">
+            {{ idea.content }}
+        </button>
+   
+
+            </form>
+            <span class="text-[#ff00ff] text-xs opacity-0 hover:opacity-100 transition">Select</span>
+        </div>
+
+
+
+
+
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p class="text-gray-400 text-sm mt-4">
+    You haven’t added any ideas yet.
+</p>
+{% endif %}

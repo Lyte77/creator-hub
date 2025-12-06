@@ -61,17 +61,16 @@
 <div class="flex flex-col items-center text-center space-y-2">
 <h1 class="text-2xl font-bold tracking-tight text-text-light-primary dark:text-text-dark-primary">Confirm Email Address</h1>
 <p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">
-                        Please confirm that <strong class="font-medium text-text-light-primary dark:text-text-dark-primary">modric@gmail.com</strong> is your email address.
+                        Please confirm that <strong class="font-medium text-text-light-primary dark:text-text-dark-primary">{{ user.email }}</strong> is your email address.
                     </p>
 </div>
 <div class="w-full pt-2">
-    <form action="{% url 'account_confirm_email' confirmation.key %}" method="post">
-        {% csrf_token %}
-        <button class="flex w-full h-12 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary text-white text-base font-bold leading-normal tracking-wide transition-all hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-primary/40 shadow-soft-neon"
-        type="submit">
-        <span class="truncate">Confirm</span>
-        </button>
-    </form>
+    
+        <a href="{{ activate_url }}" class="flex w-full h-12 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary text-white text-base font-bold leading-normal tracking-wide transition-all hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-primary/40 shadow-soft-neon">
+            <span class="truncate">Confirm</span>
+        </a>
+       
+    
 </div>
 <div class="pt-2 text-center">
 <a class="text-xs text-text-light-secondary dark:text-text-dark-secondary hover:text-primary transition-colors" href="#">Wrong email? Go back</a>

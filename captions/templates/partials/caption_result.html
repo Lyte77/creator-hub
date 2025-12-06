@@ -1,0 +1,13 @@
+ <div class="rounded-xl p-6 min-h-[400px] bg-[#141414] border border-white/10 flex flex-col gap-6">
+         <h2 class="font-bold text-xl mb-3">Generated Caption</h2>
+          
+             <p class="whitespace-pre-line mb-4">{{ caption }}</p>
+
+    <button 
+        onclick="navigator.clipboard.writeText(`{{ caption|escapejs }}`)" 
+        class="h-12 w-full rounded-xl bg-[#141414] border border-white/10 text-white font-bold hover:bg-white/10 transition flex items-center justify-center gap-2"
+    >
+     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16h8M8 12h8m-8-4h8"/></svg>
+        Copy Caption
+    </button>
+        </div>

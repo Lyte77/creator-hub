@@ -4,45 +4,21 @@
 /* input.css */
 
 @theme {
-  /*
-  |--------------------------------------------------------------------------
-  | 1. Custom Dark Mode Selector
-  |--------------------------------------------------------------------------
-  | Configures Tailwind to use the 'dark' class on a parent element (e.g., <html> or <body>).
-  */
-  --tw-dark-selector: ".dark";
 
-  /*
-  |--------------------------------------------------------------------------
-  | 2. Colors (Defined flat without prefixes)
-  |--------------------------------------------------------------------------
-  | These are defined as flat properties. Tailwind automatically generates
-  | CSS variables and utility classes (e.g., `bg-primary`).
-  */
-  primary: #ff00ff;
-  background-light: #f8f5f8;
-  background-dark: #0d0d0d;
+ --color-deep-black: #0d0d0d;
+  --color-neon-pink: #ff00ff;
 
-  /*
-  |--------------------------------------------------------------------------
-  | 3. Font Family (Must use --tw-font- prefix)
-  |--------------------------------------------------------------------------
-  | The property name after `--tw-font-` becomes the utility suffix (e.g., `font-display`).
-  */
-  --tw-font-display: 'Inter', 'sans-serif';
+  --color-surface: color-mix(in srgb, var(--color-deep-black) 90%, #ffffff);
+  --color-accent: var(--color-neon-pink);
 
-  /*
-  |--------------------------------------------------------------------------
-  | 4. Border Radius (Must use --tw-radius- prefix)
-  |--------------------------------------------------------------------------
-  | If you want to change the default radius, use `--tw-border-radius`.
-  | Otherwise, define custom sizes with `--tw-radius-`.
-  | Note: 'DEFAULT' is often mapped to 'base' or 'md' for clarity.
-  */
-  --tw-radius-base: 0.5rem;
-  --tw-radius-lg: 0.75rem;
-  --tw-radius-xl: 1rem;
-  --tw-radius-full: 9999px;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  --shadow-glow: 0 0 20px var(--color-neon-pink / 0.5);
+
+
+
+  
+
 }
 
-/* Base, Components, and Utilities must be kept outside of @theme */

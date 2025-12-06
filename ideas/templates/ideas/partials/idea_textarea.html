@@ -1,0 +1,35 @@
+<textarea id="idea-text" name="idea_text"
+  x-data 
+  x-on:input="$el.style.height = 'auto'; $el.style.height = $el.scrollHeight + 'px'"
+  class="w-full min-h-[160px] resize-none overflow-hidden p-4 rounded-xl 
+         bg-[#141414] border border-white/10 text-white 
+         placeholder:text-gray-400 
+         focus:ring-2 focus:ring-[#ff00ff] focus:border-[#ff00ff] 
+         transition leading-relaxed"
+  placeholder="Enter a topic, keywords, or paste your idea here..."
+>{{ idea.content }}</textarea>
+
+<form 
+    hx-post="{% url 'generate_captions' %}"
+    hx-target="#generated-captions" 
+    hx-swap="innerHTML"
+     hx-include="#idea-text, #selected-style"
+    class="mt-4 flex items-center gap-3"
+>
+        {% csrf_token %}
+    
+
+    <button 
+        hx-indicator="#caption-loader"
+        type="submit"
+        class="h-12 w-full rounded-xl bg-[#ff00ff] text-black font-bold text-base shadow-[0_0_20px_#ff00ff80] hover:opacity-90 transition"
+    >
+        Generate Caption
+         <div 
+            id="caption-loader"
+            class="absolute inset-0 hidden htmx-indicator flex items-center justify-center"
+        >
+            <div class="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+        </div>
+    </button>
+</form>

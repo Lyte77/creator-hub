@@ -18,7 +18,9 @@
 
       <h2 class="text-xl font-semibold text-center">Create your account</h2>
 
-      <form method="post" action="{% url 'account_signup' %}" class="space-y-4">
+      <form method="post"
+      action="{% url 'account_signup' %}"
+       class="space-y-4">
         {% csrf_token %}
 
         <!-- FIRST NAME -->
@@ -63,4 +65,7 @@
   </div>
 </div>
 
+
+<div id="signup-errors"></div>
 {% endblock %}
+xeqo mkuq rfem whkx

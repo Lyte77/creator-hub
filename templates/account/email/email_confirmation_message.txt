@@ -1,0 +1,11 @@
+{% load i18n %}
+Hello {{ user.email }},
+
+Please click the following link to confirm your email address:
+
+{{ activate_url }}
+
+If you did not request this, please ignore this email.
+
+Best regards,
+Creatorhub

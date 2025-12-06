@@ -11,17 +11,29 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^f8m3gc!5&oo4-g$@^9u4$oxfy8zmay_qd394r+vidbca0va6w'
-
+# SECRET_KEY = 'django-insecure-^f8m3gc!5&oo4-g$@^9u4$oxfy8zmay_qd394r+vidbca0va6w'
+SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -39,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django.contrib.sites',
+    'anymail',
     'allauth',
     'allauth.account',
 
@@ -48,6 +61,7 @@ INSTALLED_APPS = [
     'planner',
 
     'widget_tweaks',
+    
 ]
 
 SITE_ID = 1
@@ -63,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -158,15 +173,64 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 
 ACCOUNT_LOGIN_METHODS = ['email']
 ACCOUNT_SIGNUP_FIELDS = ['email*','password1','password2']
-ACCOUNT_AUTHENTICATUON_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-
-
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'account_login'
 
-DEFAULT_FROM_EMAIL = "CreatorHub <no-reply@yourdomain.com>"
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
+
+
+
+
+
+DEBUG = env("DEBUG") == "True"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+
+
+EMAIL_USE_SSL = True  
+EMAIL_USE_TLS = False
+# DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+
+
+
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[CreatorHub] "
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/dashboard/'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+
+GEMINI_API_KEY = env("GEMINI_API_KEY")
+
+
+
+# settings.py
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        # The root logger will handle all messages
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO', # Use 'WARNING' or 'ERROR' to see only critical messages
+            'propagate': True,
+        },
+    },
+}
 
 

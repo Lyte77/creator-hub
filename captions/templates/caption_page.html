@@ -1,0 +1,190 @@
+  {% extends 'dashboard_base.html' %}
+
+{% block content %}
+    
+
+
+<main class="flex-1 p-8 lg:p-12 bg-[#0d0d0d]">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Heading -->
+    <header class="mb-10">
+      <p class="text-white text-4xl font-black leading-tight tracking-tight">
+        AI Caption Generator
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+      <!-- LEFT COLUMN -->
+      <div class="flex flex-col gap-8">
+
+
+        <div id="selected-style">
+            <input type="hidden" name="caption_style" value="short_hook">
+        </div>
+        <!-- Template Chips -->
+        <form action="">
+            <div id="caption-style-group" class="flex gap-2"></div>
+        <div class="flex flex-wrap gap-3" >
+                {% csrf_token %}
+            
+          <button 
+          type="button"
+      
+            hx-post="{% url 'set_caption_style' %}"
+            hx-target="#selected-style"
+            hx-swap="innerHTML"
+            
+            hx-vals='{"style": "short_hook"}'
+             hx-on:click="
+            const group = document.querySelectorAll('#caption-style-group button');
+
+            // If THIS button is already active → unselect it
+            if (this.classList.contains('active-style')) {
+                this.classList.remove('active-style','bg-[#ff00ff]','text-black');
+                return;
+            }
+
+            // Otherwise → remove active from all and activate this one
+            group.forEach(btn => btn.classList.remove('active-style','bg-[#ff00ff]','text-black'));
+            this.classList.add('active-style','bg-[#ff00ff]','text-black');
+        "
+
+          class="h-8 px-4 flex items-center rounded-full bg-[#141414] hover:bg-[#ff00ff22] text-white cursor-pointer transition">
+            Short Hook
+          </button>
+
+          <button
+          type="button"
+    
+      hx-post="{% url 'set_caption_style' %}"
+      hx-target="#selected-style"
+      hx-swap="innerHTML"
+      hx-vals='{"style": "engaging_story"}' 
+        hx-on:click="
+            const group = document.querySelectorAll('#caption-style-group button');
+
+            // If THIS button is already active → unselect it
+            if (this.classList.contains('active-style')) {
+                this.classList.remove('active-style','bg-[#ff00ff]','text-black');
+                return;
+            }
+
+            // Otherwise → remove active from all and activate this one
+            group.forEach(btn => btn.classList.remove('active-style','bg-[#ff00ff]','text-black'));
+            this.classList.add('active-style','bg-[#ff00ff]','text-black');
+        "
+          
+          class="h-8 px-4 flex items-center rounded-full bg-[#141414] hover:bg-[#ff00ff22] text-white cursor-pointer transition">
+            Engaging Story
+          </button>
+
+          <button
+           type="button"
+      
+      hx-post="{% url 'set_caption_style' %}"
+      hx-target="#selected-style"
+      hx-swap="innerHTML"
+      hx-vals='{"style": "promotional"}'
+       hx-on:click="
+            const group = document.querySelectorAll('#caption-style-group button');
+
+            // If THIS button is already active → unselect it
+            if (this.classList.contains('active-style')) {
+                this.classList.remove('active-style','bg-[#ff00ff]','text-black');
+                return;
+            }
+
+            // Otherwise → remove active from all and activate this one
+            group.forEach(btn => btn.classList.remove('active-style','bg-[#ff00ff]','text-black'));
+            this.classList.add('active-style','bg-[#ff00ff]','text-black');
+        "
+          class="h-8 px-4 flex items-center rounded-full bg-[#141414] hover:bg-[#ff00ff22] text-white cursor-pointer transition">
+            Promotional
+          </button>
+          <button
+             type="button"
+            
+            hx-post="{% url 'set_caption_style' %}"
+            hx-target="#selected-style"
+            hx-swap="innerHTML"
+            hx-vals='{"style": "question"}'
+             hx-on:click="
+            const group = document.querySelectorAll('#caption-style-group button');
+
+            // If THIS button is already active → unselect it
+            if (this.classList.contains('active-style')) {
+                this.classList.remove('active-style','bg-[#ff00ff]','text-black');
+                return;
+            }
+
+            // Otherwise → remove active from all and activate this one
+            group.forEach(btn => btn.classList.remove('active-style','bg-[#ff00ff]','text-black'));
+            this.classList.add('active-style','bg-[#ff00ff]','text-black');
+        "
+          class="h-8 px-4 flex items-center rounded-full bg-[#141414] hover:bg-[#ff00ff22] text-white cursor-pointer transition">
+            Question
+          </button>
+
+        </div>
+    </form>
+
+        <!-- Idea Selector -->
+        <div class="flex flex-col gap-2">
+          <button 
+            hx-get="{% url 'ideas-list-partial' %}"
+            hx-target="#ideas-panel"
+            hx-swap="innerHTML"
+            
+          class="h-10 max-w-xs px-4 rounded-lg bg-[#141414] hover:bg-white/10 text-white font-bold text-sm flex items-center justify-between gap-2 transition">
+            Use an Idea 
+            <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg>
+          </button>
+
+          <!-- Panel -->
+          <div class="rounded-lg overflow-hidden border border-white/10 bg-[#141414] shadow-[0_0_20px_#ff00ff22]">
+            <div class="max-h-48 overflow-y-auto">
+
+            <div id="ideas-panel"></div>
+                         
+        </div>
+          </div>
+        </div>
+
+        <!-- Prompt Input -->
+       <div id="caption-input"></div>
+
+        <!-- Generate Button -->
+
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="flex flex-col gap-8">
+       
+        <div id="generated-captions"></div>
+        <!-- <button class="h-12 w-full rounded-xl bg-[#141414] border border-white/10 text-white font-bold hover:bg-white/10 transition flex items-center justify-center gap-2">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16h8M8 12h8m-8-4h8"/></svg>
+          One-Click Copy
+        </button> -->
+
+      </div>
+
+    </div>
+  </div>
+</main>
+
+
+<script>
+document.addEventListener("input", () => {
+    const textarea = document.querySelector("#idea-selected-area textarea");
+    const hiddenInput = document.querySelector("#idea_text_hidden");
+    if (textarea && hiddenInput) {
+        hiddenInput.value = textarea.value;
+    }
+});
+</script>
+
+
+{% endblock %}
