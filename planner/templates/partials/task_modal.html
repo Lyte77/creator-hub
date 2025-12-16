@@ -1,0 +1,48 @@
+<div id="task-modal" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+    <div class="bg-[#0d0d0d] rounded-xl p-6 w-full max-w-sm text-white">
+
+        <h2 class="font-bold mb-4">Create Task</h2>
+
+        <form
+            hx-post="{% url 'create_task' %}"
+            hx-target="#day-{{ date }}"
+            hx-swap="beforeend"
+            hx-on::after-request="document.getElementById('task-modal').remove()">
+
+            {% csrf_token %}
+            <input type="hidden" name="scheduled_date" value="{{ date }}">
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Task title"
+                class="w-full p-2 rounded bg-[#141414] mb-4"
+                required>
+
+
+                <select
+    name="platform"
+    class="w-full p-2 rounded bg-[#141414] mb-4 text-white">
+
+    <option value="">Select platform (optional)</option>
+    <option value="tiktok">TikTok</option>
+    <option value="instagram">Instagram</option>
+    <option value="youtube">YouTube</option>
+</select>
+            <div class="flex justify-end gap-2">
+                <button type="button"
+                    onclick="document.getElementById('task-modal').remove()"
+                    class="px-3 py-1 bg-gray-600 rounded">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="px-3 py-1 bg-[#ff00ff] rounded">
+                    Create
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>

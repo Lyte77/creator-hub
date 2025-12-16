@@ -3,7 +3,8 @@ from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from ideas.models import Idea  
-from .ai import model  # Gemini model
+
+from .ai import model # Gemini model
 import google.generativeai as genai
 
 
@@ -111,7 +112,8 @@ Write 5 high-converting social media captions based on this idea:
     try:
         response = model.generate_content(prompt)
         caption = response.text
-
+   
+     
       
 
     except Exception as e:

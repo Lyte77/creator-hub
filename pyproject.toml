@@ -12,6 +12,7 @@ dependencies = [
     "django-htmx>=1.27.0",
     "django-widget-tweaks>=1.5.0",
     "google-generativeai>=0.8.5",
+    "openai>=2.9.0",
     "python-dotenv>=1.2.1",
     "resend>=2.19.0",
 ]
