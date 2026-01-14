@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" class="dark" x-data="{ sidebarOpen: false }">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,30 +16,15 @@
 
   <!-- CSS -->
   <link href="{% static 'src/output.css' %}" rel="stylesheet">
-  <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+  <link href="{% static 'css/landing.css' %}" rel="stylesheet">
 </head>
 
-<body class="bg-[#0d0d0d] text-slate-200">
-{% block app %}{% endblock %}
-
-</div>
+<body class="text-slate-100">
 
     
-    
-    
-    
-    
-  </div>
 
-<meta name="csrf-token" content="{{ csrf_token }}">
-<script>
-  document.body.addEventListener("htmx:configRequest", (e) => {
-    e.detail.headers["X-CSRFToken"] =
-      document.querySelector('meta[name="csrf-token"]').content;
-  });
-
-
-</script>
+{% block content %} 
+{% endblock %}
 
 <script src="{% static 'js/main.js' %}"></script>
 </body>

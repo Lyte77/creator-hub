@@ -1,0 +1,33 @@
+
+
+<section class="space-y-6">
+
+  <!-- Draft Ideas -->
+  <div>
+    <div class="flex items-center gap-2 mb-3">
+      <h3 class="text-sm font-bold">Drafted Ideas</h3>
+    </div>
+           
+  <!-- {% include "partials/_draft_list.html" with task=task %} -->
+
+
+  </div>
+  <div
+  id="draft-sidebar-list"
+  hx-get="{% url 'planner_drafts' %}"
+  hx-trigger="load"
+  hx-swap="innerHTML"
+></div>
+
+  <!-- Weekly Planner -->
+  <div
+    id="planner-week"
+     hx-get="{% url 'planner_week' %}"
+    hx-trigger="load"
+    hx-swap="innerHTML"
+  >
+    <!-- week loads here -->
+  </div>
+
+</section>
+

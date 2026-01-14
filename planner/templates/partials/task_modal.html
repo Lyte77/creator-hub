@@ -1,48 +1,179 @@
-<div id="task-modal" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-    <div class="bg-[#0d0d0d] rounded-xl p-6 w-full max-w-sm text-white">
-
-        <h2 class="font-bold mb-4">Create Task</h2>
-
-        <form
-            hx-post="{% url 'create_task' %}"
-            hx-target="#day-{{ date }}"
-            hx-swap="beforeend"
-            hx-on::after-request="document.getElementById('task-modal').remove()">
-
-            {% csrf_token %}
-            <input type="hidden" name="scheduled_date" value="{{ date }}">
-
-            <input
-                type="text"
-                name="title"
-                placeholder="Task title"
-                class="w-full p-2 rounded bg-[#141414] mb-4"
-                required>
-
-
-                <select
-    name="platform"
-    class="w-full p-2 rounded bg-[#141414] mb-4 text-white">
-
-    <option value="">Select platform (optional)</option>
-    <option value="tiktok">TikTok</option>
-    <option value="instagram">Instagram</option>
-    <option value="youtube">YouTube</option>
-</select>
-            <div class="flex justify-end gap-2">
-                <button type="button"
-                    onclick="document.getElementById('task-modal').remove()"
-                    class="px-3 py-1 bg-gray-600 rounded">
-                    Cancel
-                </button>
-
-                <button
-                    type="submit"
-                    class="px-3 py-1 bg-[#ff00ff] rounded">
-                    Create
-                </button>
-            </div>
-        </form>
-
+<div
+  id="schedule-modal"
+  class="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/80 backdrop-blur-sm"
+>
+  <!-- Modal Card -->
+  <div
+    class="w-full md:max-w-md bg-[#121212] border border-white/10
+           rounded-t-3xl md:rounded-2xl
+           shadow-2xl
+           max-h-[90vh] overflow-y-auto
+           animate-in slide-in-from-bottom md:fade-in md:zoom-in"
+  >
+    <!-- Header -->
+    <div class="p-6 border-b border-white/5">
+      <h3 class="text-lg md:text-xl font-bold text-white">
+        Schedule Idea
+      </h3>
+      <p class="text-sm text-gray-400 mt-1 truncate">
+        {{ task.title }}
+      </p>
     </div>
+
+    <!-- Body -->
+    <form
+      hx-post="{% url 'schedule_task' task.id %}"
+      hx-target="#task-{{ task.id }}"
+      hx-swap="delete"
+      hx-on::after-request="document.getElementById('schedule-modal').remove()"
+      class="p-6 space-y-8"
+    >
+      {% csrf_token %}
+
+      <!-- Platform -->
+      <div>
+        <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-3">
+          Platform
+        </label>
+
+        <div class="grid grid-cols-3 gap-3">
+          <!-- Instagram -->
+          <label class="cursor-pointer relative">
+  <input
+    type="radio"
+    name="platform"
+    value="Instagram"
+    class="peer hidden"
+    checked
+  >
+
+  <div
+    class="platform-card
+           peer-checked:scale-[1.04]
+           peer-checked:border-pink-500
+           peer-checked:bg-pink-500/15
+           peer-checked:text-pink-500
+           peer-checked:ring-2
+           peer-checked:ring-pink-500/40"
+  >
+    <span class="material-symbols-outlined text-lg">photo_camera</span>
+    <span>Instagram</span>
+
+    <!-- Check -->
+    <span
+      class="material-symbols-outlined absolute top-2 right-2 text-sm
+             text-pink-500 opacity-0 scale-50
+             peer-checked:opacity-100 peer-checked:scale-100
+             transition"
+    >
+      check_circle
+    </span>
+  </div>
+</label>
+
+          <!-- TikTok -->
+          <label class="cursor-pointer">
+            <input type="radio" name="platform" value="TikTok" class="peer hidden">
+            <div class="platform-card peer-checked:border-cyan-400 peer-checked:text-cyan-400 peer-checked:bg-cyan-400/10">
+              <span class="material-symbols-outlined text-lg">movie</span>
+              <span>TikTok</span>
+            </div>
+          </label>
+
+          <!-- Twitter -->
+          <label class="cursor-pointer">
+            <input type="radio" name="platform" value="Twitter" class="peer hidden">
+            <div class="platform-card peer-checked:border-blue-400 peer-checked:text-blue-400 peer-checked:bg-blue-400/10">
+              <span class="material-symbols-outlined text-lg">alternate_email</span>
+              <span>Twitter</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Date -->
+      <div>
+        <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-3">
+          Publish Date
+        </label>
+        <input
+          type="date"
+          id="date-input"
+          name="scheduled_date"
+          min="{{ today }}"
+          required
+          class="w-full rounded-xl bg-[#1a1a1a] border border-white/10
+                 p-4 text-white
+                 focus:ring-2 focus:ring-pink-500 outline-none"
+        >
+      </div>
+
+      <!-- Quick Select -->
+      <div>
+        <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-3">
+          Quick Select
+        </label>
+
+        <div class="grid grid-cols-7 gap-2">
+          <button type="button" onclick="setQuickDate(0)" class="day-btn">M</button>
+           <button type="button" onclick="setQuickDate(1)" class="day-btn">T</button> 
+           <button type="button" onclick="setQuickDate(2)" class="day-btn">W</button> 
+           <button type="button" onclick="setQuickDate(3)" class="day-btn">T</button> 
+           <button type="button" onclick="setQuickDate(4)" class="day-btn">F</button> 
+           <button type="button" onclick="setQuickDate(5)" class="day-btn">S</button> 
+           <button type="button" onclick="setQuickDate(6)" class="day-btn">S</button>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="space-y-3 pt-2">
+        <button
+          type="submit"
+          class="w-full py-4 rounded-xl font-bold text-white
+                 bg-gradient-to-r from-pink-600 to-purple-600
+                 hover:opacity-90 transition shadow-lg shadow-pink-500/20"
+        >
+          Schedule Content
+        </button>
+
+        <button
+          type="button"
+          onclick="document.getElementById('schedule-modal').remove()"
+          class="w-full py-3 text-sm text-gray-500 hover:text-gray-300 transition"
+        >
+          Maybe later
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<style>
+  .platform-card {
+    @apply flex flex-col items-center gap-1 p-3 rounded-xl
+           border border-white/5 bg-[#1a1a1a]
+           text-gray-400 text-[11px] font-bold
+           transition-all;
+  }
+
+  .day-btn {
+    @apply aspect-square rounded-lg
+           bg-[#1a1a1a] border border-white/5
+           text-gray-400 text-xs font-bold
+           hover:bg-white/5 hover:text-white
+           transition;
+  }
+</style>
+
+    <script>
+        function setQuickDate(daysFromMonday) {
+            const now = new Date();
+            const dayOfWeek = now.getDay(); // 0 is Sunday
+            const diff = now.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Adjust to Monday
+            const targetDate = new Date(now.setDate(diff + daysFromMonday));
+            
+            document.getElementById('date-input').value = targetDate.toISOString().split('T')[0];
+        }
+    </script>
 </div>

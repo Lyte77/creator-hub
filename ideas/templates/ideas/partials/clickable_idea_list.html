@@ -30,6 +30,6 @@
 {% endfor %}
 {% else %}
 <p class="text-gray-400 text-sm mt-4">
-    You haven’t added any ideas yet.
+    {% include 'ideas/partials/no_ideas.html' %}
 </p>
 {% endif %}

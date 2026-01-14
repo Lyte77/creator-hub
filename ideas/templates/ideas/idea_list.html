@@ -1,4 +1,4 @@
-    {% extends 'dashboard_base.html' %}
+  
 
     {% block content %}
             
@@ -55,7 +55,7 @@
       </div>
     </div>
     {% empty %}
-      <p class="text-gray-400 text-center py-8">No ideas yet. Add one above!</p>
+      {% include 'ideas/partials/no_ideas.html' %}
     {% endfor %}
   </div>
 

@@ -7,3 +7,5 @@ class ContentTaskAdmin(admin.ModelAdmin):
     list_filter = ("platform", "status", "scheduled_date")
     search_fields = ("title", "caption", "user__email")
     ordering = ("-scheduled_date",)
+
+

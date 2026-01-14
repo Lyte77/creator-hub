@@ -1,25 +1,88 @@
-    <div  id="task-{{ task.id }}" class="bg-gray-900 rounded-xl p-3.5 border border-gray-800 hover:border-gray-700 transition-colors cursor-pointer">
-                                <div class="flex items-start justify-between mb-3">
-                                    {% if task.platform %}
-                                    <span class="text-xs font-semibold px-2 py-1 rounded bg-purple-600/20 text-purple-400 uppercase tracking-wide">
-                                         {{ task.get_platform_display }}
-                                    </span>
-                                    {% endif %}
-                                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <rect    x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                                        <polyline points="21 15 16 10 5 21"></polyline>
-                                    </svg>
-                                </div>
-                                <h4 class="text-sm font-medium mb-3 leading-tight">{{ task.title }}</h4>
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-1.5 text-xs text-gray-500">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>
-                                        <span>{{ day|date:"M d" }}</span>
-                                    </div>
-                                    <div class="w-6 h-6 bg-gray-800 rounded-full border border-gray-700"></div>
-                                </div>
-                            </div>
+  
+
+
+<div id="day-{{ task.scheduled_date|date:'Y-m-d' }}" hx-swap-oob="beforeend">
+  <div
+    id="task-{{ task.id }}"
+    class="bg-gray-900 rounded-xl p-3.5 border border-gray-800 hover:border-gray-700 transition-colors cursor-pointer animate-in fade-in slide-in-from-top-2 duration-300"
+  >
+
+    <!-- Top row -->
+    <div class="flex items-start justify-between mb-3">
+      <div class="flex items-center gap-2">
+        {% if task.platform %}
+        <span class="text-xs font-semibold px-2 py-1 rounded bg-purple-600/20 text-purple-400 uppercase tracking-wide">
+          {{ task.get_platform_display }}
+        </span>
+        {% endif %}
+
+        <!-- STATUS BADGE -->
+        <span
+          class="text-[10px] font-semibold px-2 py-1 rounded-full uppercase tracking-wide
+          {% if task.status == 'draft' %}
+            bg-gray-700/30 text-gray-400
+          {% elif task.status == 'planned' %}
+            bg-blue-600/20 text-blue-400
+          {% elif task.status == 'posted' %}
+            bg-green-600/20 text-green-400
+          {% elif task.status == 'failed' %}
+            bg-red-600/20 text-red-400
+          {% endif %}"
+        >
+          {{ task.status }}
+        </span>
+      </div>
+
+      <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+        <polyline points="21 15 16 10 5 21"></polyline>
+      </svg>
+    </div>
+
+    <!-- Title -->
+    <h4 class="text-sm font-medium mb-3 leading-tight text-white">
+      {{ task.title }}
+    </h4>
+
+    <!-- Footer -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-1.5 text-xs text-gray-500">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span>{{ task.scheduled_date|date:"M d" }}</span>
+      </div>
+
+      <!-- optional: quick status dot -->
+      <div
+        class="w-2.5 h-2.5 rounded-full
+        {% if task.status == 'draft' %}
+          bg-gray-500
+        {% elif task.status == 'scheduled' %}
+          bg-blue-500
+        {% elif task.status == 'posted' %}
+          bg-green-500
+        {% elif task.status == 'failed' %}
+          bg-red-500
+        {% endif %}"
+      ></div>
+    </div>
+    <button hx-post="{% url 'unschedule_task' task.id %}" 
+        hx-target="#task-{{ task.id }}" 
+        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+        hx-swap="delete"
+        class="text-red-500 hover:bg-red-500/10 px-3 py-1 rounded">
+    Move to Drafts
+    </button>
+
+         <button 
+        hx-get="{% url 'schedule_task' task.id %}" 
+        hx-target="body" 
+        hx-swap="beforeend"
+        class="text-xs text-gray-500 hover:text-white">
+        Reschedule
+    </button>   
+  </div>
+</div>

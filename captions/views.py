@@ -11,7 +11,10 @@ import google.generativeai as genai
 
 @login_required
 def caption_page(request):
-    return render(request,'caption_page.html' )
+    if request.headers.get("HX-Request"):
+        return render(request, "partials/caption_content.html")
+
+    return render(request, "captions/caption_page.html")
 
 @login_required
 def ideas_list_partial(request):

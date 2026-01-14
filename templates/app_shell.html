@@ -11,8 +11,14 @@
     <header class="h-14 border-b border-white/10"></header>
 
     <!-- HTMX TARGET -->
-    <main id="page-content" class="flex-1 overflow-y-auto p-6">
-      {% block page %}{% endblock %}
+    <main id="page-content"
+     hx-get="{% url 'idea_page' %}"
+        hx-trigger="load"
+        hx-swap="innerHTML"
+     class="flex-1 overflow-y-auto p-6">
+      {% block page %}
+       
+      {% endblock %}
     </main>
   </div>
 

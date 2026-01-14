@@ -1,0 +1,5 @@
+{% for task in draft_tasks %}
+  {% include "partials/draft_card.html" with task=task %}
+{% empty %}
+  <p class="text-xs text-gray-500 px-4">No drafts yet.</p>
+{% endfor %}

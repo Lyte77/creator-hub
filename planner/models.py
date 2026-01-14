@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from ideas.models import Idea
+
 
 User = settings.AUTH_USER_MODEL
 
@@ -18,27 +20,31 @@ STATUS_CHOICES = [
 
 
 class ContentTask(models.Model):
-    """
-    Core task representing a scheduled content item for a user.
-    Lean, queryable, and ready for HTMX partial swaps.
-    """
+   
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="content_tasks")
     # optional link to an idea (set null when idea deleted)
-    idea = models.ForeignKey(
-        "ideas.Idea",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="tasks",
+    # idea = models.ForeignKey(
+    #     "ideas.Idea",
+    #     on_delete=models.SET_NULL,
+    #     null=True,
+    #     blank=True,
+    #     related_name="tasks",
+    # )
+
+    idea = models.OneToOneField(
+        Idea,
+        on_delete=models.CASCADE,
+        related_name="task"
     )
 
     title = models.CharField(max_length=255, blank=True)
     caption = models.TextField(blank=True)
 
     platform = models.CharField(max_length=20, choices=PLATFORM_CHOICES)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="planned")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="draft")
 
-    scheduled_date = models.DateField(db_index=True)
+    scheduled_date = models.DateField( null=True,
+        blank=True,db_index=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
